@@ -1,0 +1,48 @@
+*.log
+.DS_Store
+Thumbs.db
+
+# Arquivos de ambiente
+.env
+.env.backup
+.env.production
+
+# Configurações de IDEs e ferramentas
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+
+# Node e Yarn
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Build e storage públicos
+/public/build
+/public/hot
+/public/storage
+
+# Storage (ignora tudo, exceto pastas necessárias)
+/storage/*
+!/storage/app
+!/storage/app/public
+!/storage/framework
+!/storage/logs
+/storage/*.key
+/storage/pail
+
+# Cache do Laravel
+/bootstrap/cache/*.php
+
+# Vendor
+/vendor
+
+# Homestead
+Homestead.json
+Homestead.yaml
