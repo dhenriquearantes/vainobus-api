@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Documento;
+use App\Models\TipoDocumento;
+use App\Models\TipoUsuario;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -28,7 +29,7 @@ class AuthController extends Controller
 
         if (!$user) {
             $documento = Documento::where('numero_documento', $request->login)->first();
-            if ($documento && $documento->usuario && $documento->tipo_documento == Documento::CPF) {
+            if ($documento && $documento->usuario && $documento->id_tipo_documento == Documento::CPF) {
                 $user = $documento->usuario;
             }
         }
@@ -69,11 +70,12 @@ class AuthController extends Controller
             'nome' => $request->name,
             'email' => $request->email,
             'senha' => Hash::make($request->password),
+            'id_tipo_usuario' => TipoUsuario::Gestor,
         ]);
 
         $documento = Documento::create([
             'id_usuario' => $user->id,
-            'tipo_documento' => Documento::CPF,
+            'id_tipo_documento' => TipoDocumento::CPF,
             'numero_documento' => $request->cpf,
         ]);
 

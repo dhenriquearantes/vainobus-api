@@ -25,7 +25,7 @@ class User extends Authenticatable
         'nome',
         'email',
         'senha',
-        'id_documento',
+        'id_tipo_usuario',
     ];
 
     /**
@@ -52,8 +52,8 @@ class User extends Authenticatable
         return $this->senha;
     }
 
-    public function documento()
+    public function documentos()
     {
-        return $this->belongsTo(Documento::class, 'id_documento');
+        return $this->hasMany(Documento::class, 'id_usuario');
     }
 }
