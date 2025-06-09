@@ -29,7 +29,7 @@ class AuthController extends Controller
 
         if (!$user) {
             $documento = Documento::where('numero_documento', $request->login)->first();
-            if ($documento && $documento->usuario && $documento->id_tipo_documento == Documento::CPF) {
+            if ($documento && $documento->usuario && $documento->id_tipo_documento == TipoDocumento::CPF) {
                 $user = $documento->usuario;
             }
         }
