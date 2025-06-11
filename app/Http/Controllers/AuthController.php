@@ -95,7 +95,7 @@ class AuthController extends Controller
     public function recoverPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|exists:users',
+            'email' => 'required|string|email|exists:usuario,email',
         ]);
 
         if ($validator->fails()) {
