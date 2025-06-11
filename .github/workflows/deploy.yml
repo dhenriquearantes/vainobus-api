@@ -19,6 +19,6 @@ jobs:
           echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
           ssh -i ~/.ssh/id_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd /opt/sources/backend-vainobus
+            cd /opt/sources/vainobus-api/
             git pull origin master
           EOF
