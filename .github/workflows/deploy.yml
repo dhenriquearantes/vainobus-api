@@ -1,4 +1,4 @@
-name: Git pull master
+name: Git pull remoto ao subir na master
 
 on:
   push:
@@ -10,12 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Fazer git pull remoto ao subir na master
+      - name: Preparar chave SSH e conectar na VPS
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+          echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
           ssh -i ~/.ssh/id_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd /opt/sources/backend-vainobus
