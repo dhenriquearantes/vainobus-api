@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Documento extends Model
 {
@@ -18,4 +19,9 @@ class Documento extends Model
     ];
 
     public $timestamps = false;
+
+    public function usuario(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id_usuario');
+    }
 } 
