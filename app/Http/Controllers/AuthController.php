@@ -28,15 +28,17 @@ class AuthController extends Controller
         $user = User::where('email', $request->login)->first();
 
         if (!$user) {
-            $documento = Documento::where('numero_documento', $request->login)->first();
-            if ($documento && $documento->usuario && $documento->id_tipo_documento == TipoDocumento::CPF) {
+            $documento = Documento::where('numero_documento', $request->login)
+                ->where('id_tipo_documento', TipoDocumento::CPF)
+                ->first();
+            if ($documento && $documento->usuario) {
                 $user = $documento->usuario;
             }
         }
 
         if (!$user || !Hash::check($request->password, $user->senha)) {
             throw ValidationException::withMessages([
-                'login' => ['As credenciais fornecidas estão incorretas.'],
+                'login' => ['As credenciais fornecidas estão incorretas.' . $documento],
             ]);
         }
 
