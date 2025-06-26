@@ -12,19 +12,26 @@ class UserController extends Controller
     public function getUser(Request $request)
     {
         $user = $request->user();
-        $documento = $user->documentos()->first();
 
         return response()->json([
-            'id' => $user->id,
             'nome' => $user->nome,
             'email' => $user->email,
             'id_tipo_usuario' => $user->id_tipo_usuario,
-            'documento' => $documento ? [
-                'id' => $documento->id,
-                'numero' => $documento->numero_documento,
-            ] : null,
-            'created_at' => $user->created_at ? $user->created_at->toISOString() : null,
-            'updated_at' => $user->updated_at ? $user->updated_at->toISOString() : null,
+        ]);
+    }
+
+    public function updateUser(Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|string|max:255',
+        ]);
+
+        $user = $request->user();
+        $user->update([
+            'nome' => $request->nome
+        ]);
+        return response()->json([
+            'message' => 'Usuário atualizado com sucesso',
         ]);
     }
 

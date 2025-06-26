@@ -25,7 +25,9 @@ class AuthController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $user = User::where('email', $request->login)->first();
+        $user = User::where('email', $request->login)
+            ->orWhere('usuario', $request->login)
+            ->first();
 
         if (!$user) {
             $documento = Documento::where('numero_documento', $request->login)
@@ -38,7 +40,7 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($request->password, $user->senha)) {
             throw ValidationException::withMessages([
-                'login' => ['As credenciais fornecidas estão incorretas.' . $documento],
+                'login' => ['As credenciais fornecidas estão incorretas.'],
             ]);
         }
 

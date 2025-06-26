@@ -13,5 +13,6 @@ Route::post('/user/recover-password', [AuthController::class, 'recoverPassword']
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/user/me', [UserController::class, 'getUser']);
+    Route::post('/user/me/update', [UserController::class, 'updateUser']);
     Route::post('/workspace/create', [WorkspaceController::class, 'createWorkspace']);
 }); 
